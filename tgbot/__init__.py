@@ -431,9 +431,10 @@ class Bot(Updater):
         worksheet.write(0, 1, "chat_id")
         worksheet.write(0, 2, "name")
         worksheet.write(0, 3, "number")
-        worksheet.write(0, 4, "is_registered")
-        worksheet.write(0, 5, "is_admin")
-        worksheet.write(0, 6, "reg date")
+        worksheet.write(0, 4, "courses")
+        worksheet.write(0, 5, "is_registered")
+        worksheet.write(0, 6, "is_admin")
+        worksheet.write(0, 7, "reg date")
 
         users = User.all()
         for i in range(len(users)):
@@ -441,9 +442,14 @@ class Bot(Updater):
             worksheet.write(i+1, 1, users[i].chat_id)
             worksheet.write(i+1, 2, users[i].name)
             worksheet.write(i+1, 3, users[i].number)
-            worksheet.write(i+1, 4, users[i].is_registered)
-            worksheet.write(i+1, 5, users[i].is_admin)
-            worksheet.write(i+1, 6, str(users[i].reg_date))
+            worksheet.write(i+1, 4, ",".join(
+                [
+                    course.course.name for course in users[i].courses()
+                ]
+            ))
+            worksheet.write(i+1, 5, users[i].is_registered)
+            worksheet.write(i+1, 6, users[i].is_admin)
+            worksheet.write(i+1, 7, str(users[i].reg_date))
         data.close()
         return open("stats.xlsx", 'rb')
 

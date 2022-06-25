@@ -26,12 +26,15 @@ class User(models.Model):
     @classmethod
     def all(self) -> "list[User]":
         return User.objects.all()
+    
+    def courses(self) -> "list[Lead]":
+        return Lead.objects.filter(user=self)
         
 
 
 class Lead(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
-    course = models.ForeignKey('Course', on_delete=models.CASCADE)
+    course: "Course" = models.ForeignKey('Course', on_delete=models.CASCADE)
 
 
 
