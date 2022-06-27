@@ -13,6 +13,7 @@ class User(models.Model):
     is_admin = models.BooleanField(default=False)
     reg_date = models.DateTimeField(auto_now_add=True)
 
+
     @classmethod
     def get(self, update:Update):
         user: tgUser = update.message.from_user if update.message else update.callback_query.from_user
@@ -30,6 +31,8 @@ class User(models.Model):
     def courses(self) -> "list[Lead]":
         return Lead.objects.filter(user=self)
         
+    def __str__(self):
+        return f"{self.name} {self.number}"    
 
 
 class Lead(models.Model):
