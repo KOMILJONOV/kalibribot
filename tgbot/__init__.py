@@ -1,5 +1,3 @@
-from ast import Call
-from uuid import uuid4
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from telegram.ext import (
     Updater,
@@ -417,7 +415,7 @@ class Bot(Updater):
     
     def data(self, update:Update, context:CallbackContext):
         user, db = User.get(update)
-        user.send_message("Iltimos post uchun matn yuboring!")
+        # user.send_message("Iltimos post uchun matn yuboring!")
         if db.is_admin:
             xlsx = self.make_stats()
             user.send_document(xlsx)
