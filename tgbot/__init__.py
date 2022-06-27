@@ -35,7 +35,7 @@ class Bot(Updater):
     def __init__(self):
         super().__init__(TOKEN)
 
-        not_start = ~Filters.regex('^(/start|/post)$')
+        not_start = ~Filters.regex('^(/start|/post|/data)$')
 
         self.dispatcher.add_handler(
             ConversationHandler(
@@ -450,4 +450,3 @@ class Bot(Updater):
             worksheet.write(i+1, 7, str(users[i].reg_date))
         data.close()
         return open("stats.xlsx", 'rb')
-
